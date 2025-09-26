@@ -1,13 +1,17 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, permissions
 from .services import GeminiService
+from user_auth.authentication import CustomTokenAuthentication
+from user_auth.permissions import RoleBasedPermission
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 @api_view(['POST'])
+@authentication_classes([CustomTokenAuthentication])
+@permission_classes([permissions.AllowAny])
 def query_gemini(request):
     """
     API endpoint to send queries to Gemini and return responses
@@ -56,6 +60,8 @@ def query_gemini(request):
 
 
 @api_view(['POST'])
+@authentication_classes([CustomTokenAuthentication])
+@permission_classes([permissions.AllowAny])
 def analyze_project(request):
     """
     API endpoint to analyze project requirements and suggest suitable developers

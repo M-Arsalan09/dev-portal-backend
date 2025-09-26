@@ -7,9 +7,13 @@ from rest_framework.pagination import PageNumberPagination
 from developers.models import Skills
 from .models import ProjectCategory, ProjectCategorySkills
 from .serializers import ProjectCategorySerializer, ProjectCategorySkillsSerializer, ProjectCategoryListSerializer
+from user_auth.authentication import CustomTokenAuthentication
+from user_auth.permissions import RoleBasedPermission
 
 
 class ProjectCategoryViewSet(viewsets.ViewSet):
+    authentication_classes = [CustomTokenAuthentication]
+    permission_classes = [RoleBasedPermission]
     
     def list(self, request):
         project_categories = ProjectCategory.objects.all()

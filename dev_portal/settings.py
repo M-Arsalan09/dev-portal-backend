@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'developers',
     'projects',
-    'agent'
+    'agent',
+    'user_auth.apps.UserAuthConfig',
 ]
 
 MIDDLEWARE = [

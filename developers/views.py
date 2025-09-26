@@ -7,8 +7,12 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Developers, SkillAreas, Skills, DeveloperSkills, DeveloperProjects, DeveloperSkillLevel
 from .serializers import DeveloperListSerializer, DeveloperSerializer, SkillAreaSerializer, DeveloperProjectsSerializer, DeveloperProjectsListSerializer
 from .services import SkillLevelService
+from user_auth.authentication import CustomTokenAuthentication
+from user_auth.permissions import RoleBasedPermission
 
 class DeveloperViewSet(viewsets.ViewSet):
+    authentication_classes = [CustomTokenAuthentication]
+    permission_classes = [RoleBasedPermission]
     
     def list(self, request):
         developers = Developers.objects.all()
@@ -185,6 +189,8 @@ class DeveloperViewSet(viewsets.ViewSet):
             return Response({"details": "Skill levels updated for all developers"}, status=status.HTTP_200_OK)
         
 class SkillAreaViewSet(viewsets.ViewSet):
+    authentication_classes = [CustomTokenAuthentication]
+    permission_classes = [RoleBasedPermission]
     
     def list(self, request):
         skill_areas = SkillAreas.objects.all()
@@ -280,6 +286,8 @@ class SkillAreaViewSet(viewsets.ViewSet):
             return Response({"details": "Skill area or skill id is required"}, status=status.HTTP_400_BAD_REQUEST)
                 
 class DeveloperProjectsViewSet(viewsets.ViewSet):
+    authentication_classes = [CustomTokenAuthentication]
+    permission_classes = [RoleBasedPermission]
     
     def list(self, request):
         #apply filter by developer name
