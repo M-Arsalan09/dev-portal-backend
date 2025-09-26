@@ -1,0 +1,5 @@
+.venv/
+.env
+API_Integration_Guide.md
+Dev Portal.postman_collection.json
+Skill_Level_System.md
